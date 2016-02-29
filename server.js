@@ -17,33 +17,6 @@ app.get('*', function(req, res, next){
     next();
 });
 
-app.get('/youtube-import/:trailerURL/:titleString/:uuid', function(req, res) {
-    var cmd = '/usr/bin/python youtube_downloader.py --youtube_ID="' +
-        req.params.trailerURL +
-        '" --title="' +
-        req.params.titleString
-        +
-        '" --uuid="' +
-        req.params.uuid +
-        '"'
-    console.log("running: " + cmd)
-    exec(cmd, function(error, stdout, stderr) {
-        console.log(stdout)
-        var URLTitlePart = req.params.titleString.replaceAll(" ", "_").toLowerCase()
-        var URLFilename = "http://trailers.mixd.tv/trailers_de/360/" + URLTitlePart + "_" + req.params.uuid + ".jpg"
-
-        res.send({
-            'result': 'TBD',
-            'msg': {
-                'title': req.params.titleString,
-                'source': "http://www.youtube.com/watch?v=" + req.params.imageURL,
-                'imageID': req.params.uuid,
-                'targetURL': URLFilename
-            }
-        });
-    });
-})
-
 app.get('/', function(req, res) {
     res.send({
         'result': 'error',
@@ -52,8 +25,6 @@ app.get('/', function(req, res) {
         }
     });
 })
-
-
 
 app.listen(9756, function(){
     console.log('Server listening on', 9757)
