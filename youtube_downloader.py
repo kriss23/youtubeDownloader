@@ -6,13 +6,13 @@ import time
 import subprocess
 
 def label_image(youtube_ID, image_title, uuid):
-    print "downloading video from YouTube: https://www.youtube.com/watch?v=" + youtube_ID
+    print "downloading video from YouTube: http://www.youtube.com/watch?v=" + youtube_ID
     # generate unitque filename for tmp file
     output_filename = image_title.lower().replace(" ", "_") + "_" + uuid + ".mp4"
 
     # render output image
     subprocess.call(["/usr/bin/youtube-dl", "-f", "18",
-                     "https://www.youtube.com/watch?v=" + youtube_ID,
+                     "http://www.youtube.com/watch?v=" + youtube_ID,
                      "-o", "/var/www/html/trailers_de/360/" + output_filename])
     print "Done. Video rendered can be found on: http://trailers.mixd.tv/trailers_de/360/" + output_filename,
 
