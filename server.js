@@ -30,7 +30,7 @@ app.get('/youtube-import/:trailerURL/:titleString/:uuid', function(req, res) {
     exec(cmd, function(error, stdout, stderr) {
         console.log(stdout)
         var URLTitlePart = req.params.titleString.replaceAll(" ", "_").toLowerCase()
-        var URLFilename = "http://trailers.mixd.tv/trailers_de/360/" + URLTitlePart + "_" + req.params.uuid + ".mp4"
+        var URLFilename = "http://trailers.mixd.tv/trailers_de/720/" + URLTitlePart + "_" + req.params.uuid + ".mp4"
 
         res.send({
             'result': 'TBD',
