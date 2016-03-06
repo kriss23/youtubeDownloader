@@ -15,19 +15,24 @@ def label_image(youtube_ID, image_title, uuid):
     # generate unitque filename for tmp file
     output_filename = image_title.lower().replace(" ", "_") + "_" + uuid + ".mp4"
 
+    output_path_720 = VIDEO_PATH_720 + output_filename
+    output_path_360 = VIDEO_PATH_360 + output_filename
+
     # render output image
     subprocess.call(["/usr/bin/youtube-dl", "-f", "22", # 18 for 320p and 22 for 720p
                      "http://www.youtube.com/watch?v=" + youtube_ID,
-                     "-o", VIDEO_PATH_720 + output_filename])
+                     "-o", output_path_720])
+    subprocess.call(["/usr/bin/youtube-dl", "-f", "18", # 18 for 360p and 22 for 720p
+                     "http://www.youtube.com/watch?v=" + youtube_ID,
+                     "-o", output_path_360])
 
-    if not os.path.isfile(output_filename) :
+    if os.path.isfile(output_path_720):
+        print "Done. Video rendered can be found on: http://trailers.mixd.tv/trailers_de/720/" + output_filename,
+    elif os.path.isfile(output_path_360):
         # fallback to 360p resolution
-        subprocess.call(["/usr/bin/youtube-dl", "-f", "18", # 18 for 360p and 22 for 720p
-                         "http://www.youtube.com/watch?v=" + youtube_ID,
-                         "-o", VIDEO_PATH_360 + output_filename])
         print "Done. Video rendered can be found on: http://trailers.mixd.tv/trailers_de/360/" + output_filename,
     else:
-        print "Done. Video rendered can be found on: http://trailers.mixd.tv/trailers_de/720/" + output_filename,
+        print "Error: file could not be found in 720p or 360p resolution."
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
