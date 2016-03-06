@@ -32,7 +32,7 @@ def label_image(youtube_ID, image_title, uuid):
         # fallback to 360p resolution
         print "Done. Video rendered can be found on: http://trailers.mixd.tv/trailers_de/360/" + output_filename,
     else:
-        print "Error: file could not be found in 720p or 360p resolution."
+        print "Error: file could not be found in the needed resolution."
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
