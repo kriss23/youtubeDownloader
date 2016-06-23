@@ -19,12 +19,16 @@ def label_image(youtube_ID, image_title, uuid):
     output_path_360 = VIDEO_PATH_360 + output_filename
 
     # render output image
-    subprocess.call(["/usr/bin/youtube-dl", "-f", "22", # 18 for 320p and 22 for 720p
-                     "http://www.youtube.com/watch?v=" + youtube_ID,
-                     "-o", output_path_720])
-    subprocess.call(["/usr/bin/youtube-dl", "-f", "18", # 18 for 360p and 22 for 720p
-                     "http://www.youtube.com/watch?v=" + youtube_ID,
-                     "-o", output_path_360])
+
+    if not os.path.isfile(output_path_720):
+        subprocess.call(["/usr/bin/youtube-dl", "-f", "22", # 18 for 320p and 22 for 720p
+                        "http://www.youtube.com/watch?v=" + youtube_ID,
+                        "-o", output_path_720])
+
+    if not os.path.isfile(output_path_360):
+        subprocess.call(["/usr/bin/youtube-dl", "-f", "18", # 18 for 360p and 22 for 720p
+                        "http://www.youtube.com/watch?v=" + youtube_ID,
+                        "-o", output_path_360])
 
     if os.path.isfile(output_path_720):
         print "Done. Video rendered can be found on: http://trailers.mixd.tv/trailers_de/720/" + output_filename,
